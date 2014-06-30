@@ -1,0 +1,16 @@
+<div class="columns large-centered large-5 message-block">
+  <% flash.delete(:hint) %>
+  <% flash.each do |name, msg| -%>
+    <% if msg.is_a?(String) %>
+      <div data-alert class="alert-box warning round <%= name.to_s == 'notice' ? 'success' : 'alert' %>">
+        <%= content_tag :div, msg %>
+        <a href="#" class="close">&times;</a>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<div class="columns large-centered large-6 text-center">
+  <h1 class="lose">SORRY!</h1>
+  <h1 class="lose">YOU LOSE!</h1>
+  <%= link_to "Play Again?", games_start_path, class: 'button expand' %>
+</div>

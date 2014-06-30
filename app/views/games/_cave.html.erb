@@ -1,0 +1,130 @@
+<div class="left icon-bar vertical three-up">
+  <a href="<%= root_path %>" class="item">
+    <i class="fa fa-home"></i>
+    <label>Home</label>
+  </a>
+  <a href="#" data-reveal-id="myModal" class="item">
+    <i class="fa fa-file-text-o"></i>
+    <label>Rules</label>
+  </a>
+  <a href="#" data-reveal-id="leaderModal" class="item">
+    <i class="fa fa-list-ol"></i>
+    <label>Leader</label>
+  </a>
+  <a href="<%= games_start_path %>" class="item">
+    <i class="fa fa-power-off"></i>
+    <label>Start</label>
+  </a>
+</div>
+
+<div class="row">
+  <div class="columns large-10">
+    <div class="row">
+      <div class="columns large-3 text-center">
+        <h2>Moves</h2>
+        <h1><%= @game.counter %></h1>
+      </div>
+      <div class="columns large-6 message-block">
+        <% flash.each do |name, msg| -%>
+          <% if msg.is_a?(String) %>
+            <div data-alert class="alert-box round <%= name.to_s == 'hint' ? 'info' : 'warning' %>" id="fourthStop">
+              <%= content_tag :div, msg %>
+              <a href="#" class="close">&times;</a>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="columns large-3 text-center left">
+        <h2>Time</h2>
+        <h1><%= "#{(Time.now - @game.created_at).to_i} s" %></h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="columns large-5 text-center">
+        <%= button_to "#{@left_room}", { action: "move", params: { player: @left_room } }, class: 'button round', id: 'secondStop' %>
+        <%= link_to games_shoot_left_path do %>
+          <i class="fa fa-bomb"></i>
+        <% end %>
+      </div>
+      <div class="columns large-2 text-center">
+        <i class="fa fa-user"></i></br>
+        <p class="label round" id="firstStop"><%= "Room #{@game.player}" %></p>
+      </div>
+      <div class="columns large-5 text-center">
+        <%= button_to "#{@right_room}", { action: "move", params: { player: @right_room } }, class: 'button round' %>
+        <%= link_to games_shoot_right_path do %>
+          <i class="fa fa-bomb" id="thirdStop"></i>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="columns large-centered large-10 text-center">
+        <%= button_to "#{@back_room}", { action: "move", params: { player: @back_room } }, class: 'button round' %>
+        <%= link_to games_shoot_back_path do %>
+          <i class="fa fa-bomb"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns large-2">
+    <h3><strong>Ammo</strong></h3>
+    <% @game.arrow.times do %>
+      <i class="fa fa-bomb"></i></br>
+    <% end %>
+  </div>
+</div>
+
+<div id="myModal" class="reveal-modal" data-reveal>
+  <h6>Getting Started with "Wumpit"</h6>
+  <p>After you start the game, a hidden maze is constructed. Every time you start a new game you enter a unique cave. The game starts in an empty cavern and you will see three rooms plus your current location. You can move to any adjacent room by clicking it. You also have the choice of throwing a grenade instead of moving. If you choose to throw a grenade it can either wake the Wumpit or kill it depending on it's proximity.</p>
+  <h6>Tracking Down The Wumpit</h6>
+  <p>The Wumpit makes its lair in one of the caverns in the maze. You know you're getting near the Wumpit when you get an alert that you smell a foul stench. NEVER enter the Wumpit's lair, or else you lose the game.</p>
+  <h6>Once The Wumpit Is Located</h6>
+  <p>When you think you know where the Wumpit is, it's time to throw your grenade. Click the orange grenade to throw it into the adjacent room. If the cavern you throw into is the Wumpit's lair, you win! If you are wrong, the Wumpit hears the greande and comes looking for you. You only have five grenades, so if you use them all you lose.</p>
+  <h6>Caution! Pit</h6>
+  <p>When you enter a cavern and receive a message that there is a draft you are approaching a pit. Pits are vast pools of stagnant water that fill a cavern. If you enter a pit cavern, you fall in and lose the game.</p>
+  <h6>Do Not Disturb The Bats</h6>
+  <p>Some of the caverns in the maze are inhabited by very large bats. The first time you enter a cavern near the bats you will receive an alert that there are bats in the one of the next rooms. If you enter a cavern with bats, you will disturb them. If disturbed, they will pick you up and carry you off to anywhere in the maze...a tunnel, a pit, the Wumpit's lair, or even the cavern where your flight began. Then they choose a new place to live.</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="leaderModal" class="reveal-modal" data-reveal>
+  <div class="row">
+    <div class="columns large-2">
+      <h2>Rank</h2>
+    </div>
+    <div class="columns large-4">
+      <h2>Name</h2>
+    </div>
+    <div class="columns large-3">
+      <h2>Moves</h2>
+    </div>
+    <div class="columns large-3">
+      <h2>Time</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns large-12">
+      <%= render @high_scores %>
+    </div>
+  </div>
+</div>
+
+<!-- At the bottom of your page but inside of the body tag -->
+<ol class="joyride-list" data-joyride>
+  <li data-id="firstStop">
+    <p>Your current room is shown here.</p>
+  </li>
+  <li data-id="secondStop">
+    <p>To move to a new room click one of these.</p>
+  </li>
+  <li data-id="thirdStop">
+    <p>If you think you found the wumpit, throw a bomb in his room.</p>
+  </li>
+  <li data-id="fourthStop">
+    <p>Orange messages alert you of cave hazards.</p>
+  </li>
+</ol>
