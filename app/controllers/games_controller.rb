@@ -68,6 +68,12 @@ class GamesController < ApplicationController
     room_choices
   end
 
+  # def create
+  #   @ = Arrow.fade_out_ammo!(params[:arrow])
+  #   respond_to do |format|
+  #     format.html { redirect_to @arrow.shoot }
+  #     format.js
+
   def shoot_back
     @arrow = @game.arrow
     @game.update(arrow: @arrow -= 1)
@@ -117,7 +123,7 @@ class GamesController < ApplicationController
         flash[:lose] = "You startled the wumpit and he found you! You lose!"
         redirect_to games_lose_path
       end
-    end
+    end  
   end
 
   def shoot_left
@@ -169,7 +175,7 @@ class GamesController < ApplicationController
       flash.now[:hint] = "Did you know Clinton Dreisbach has a pet Wumpit!"
     when 2
       flash.now[:hint] = "When you run out of grenades you lose!"
-    when 
+    when
       flash.now[:hint] = "Your time and moves gauge your performance!"
     when 4
       flash.now[:hint] = "Click on any blue 'Rooms' to move your player!"
