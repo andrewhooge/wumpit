@@ -15,6 +15,10 @@ class JoinsController < ApplicationController
   # GET /joins/new
   def new
     @join = Join.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /joins/1/edit
@@ -25,11 +29,10 @@ class JoinsController < ApplicationController
   # POST /joins.json
   def create
     @join = Join.new(join_params)
-
     respond_to do |format|
       if @join.save
         format.html { redirect_to @join, notice: 'You successfully signed up.' }
-        format.js { render :show, status: :created, location: @join }
+        format.js
       else
         format.js  { render :new }
         format.html { render :new }
