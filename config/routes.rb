@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :joins
+
+  resources :user_forms
+
   root 'static_pages#home'
 
   get 'games/bat'

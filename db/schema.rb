@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630015429) do
+ActiveRecord::Schema.define(version: 20140702080332) do
 
   create_table "games", force: true do |t|
     t.integer  "room"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(version: 20140630015429) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rank"
+  end
+
+  create_table "joins", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_forms", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
