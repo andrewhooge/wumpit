@@ -28,11 +28,11 @@ class JoinsController < ApplicationController
 
     respond_to do |format|
       if @join.save
-        format.html { redirect_to @join, notice: 'Join was successfully created.' }
-        format.json { render :show, status: :created, location: @join }
+        format.html { redirect_to @join, notice: 'You successfully signed up.' }
+        format.js { render :show, status: :created, location: @join }
       else
+        format.js  { render :new }
         format.html { render :new }
-        format.json { render json: @join.errors, status: :unprocessable_entity }
       end
     end
   end
